@@ -10,20 +10,25 @@ const { readFile, readFileSync, createReadStream } = require("fs");
 const http = require("http");
 
 const requestListener = function (req, res) {
-  res.writeHead(200, { "Content-Type": "text/html" });
+  readFile("../index.html", "utf8", (err, html) => {
+    if (err) {
+      // res.status(500).send("sorry, out of order");
+      res.statusCode = 500;
+      res.end("oops, something went wrong");
+    }
 
-  //   readFile("../index.html", "utf8", (err, html) => {
-  //     if (err) {
-  //       res.status(500).send("sorry, out of order");
-  //     }
+    res.writeHead(200, { "Content-Type": "text/html", test: "it works" });
+    res.end(html);
+    //res.end(data);  === res.write(data); res.end()
+    // res.writeHead(status-code, {...objects}) === setHeader(key,value), setHeader(key,value) without status code
+  });
 
-  //     res.end(html);
-  //   });
-
-  createReadStream("../index.html").pipe(res);
+  // createReadStream("../index.html").pipe(res);
 };
 
 const server = http.createServer(requestListener);
 
 // Start the server on port 3000
-server.listen(process.env.PORT || 3000);
+server.listen(process.env.PORT || 3000, "localhost", () =>
+  console.log("server is up")
+);
