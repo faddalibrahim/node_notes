@@ -14,7 +14,7 @@ app.use(morgan("dev"));
 app.get("/", (req, res) => {
   //   res.sendFile("./public/index.html", { root: __dirname });
   //   console.log(__dirname);
-  res.render("index", {
+  res.render("pages/index", {
     blogs: [
       { title: "Becoming", content: "Yeah this is some fucking content" },
       { title: "Confusion", content: "Yeah this is some fucking content" },
@@ -26,18 +26,19 @@ app.get("/", (req, res) => {
 });
 
 app.get("/about", (req, res) => {
-  res.render("about");
+  res.render("pages/about");
 });
 
 app.get("/about-me", (req, res) => {
-  res.render("about");
+  res.render("pages/about");
 });
 
 app.get("/blogs/create", (req, res) => {
-  res.render("create");
+  res.render("pages/create");
 });
 
 app.use((req, res) => {
   // res.status(404).sendFile("./public/404.html", { root: __dirname });
-  res.status(404).render("404");
+  res.status(404).render("pages/404", { errorPage: req.url });
+  console.log(req.url);
 });

@@ -1,0 +1,14 @@
+404.ejs-
+<html lang="en">
+
+<%- include("../partials/head.ejs",{title: "404" })%>
+
+<body>
+    <%- include("../partials/nav.ejs")%>
+
+    <div class="not-found content">
+        Oops, Looks like we don't have a <span style="color: crimson"><%= errorPage.slice(1) %></span> page
+    </div>
+</body>
+
+</html>
